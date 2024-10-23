@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+  /* Adding custom colors */
+  :root {
+    --color-primary-dark: #384B70; /* Navbar background */
+    --color-primary-light: #507687; /* Links, focus borders */
+    --color-background: #F4F6FF; /* Page background */
+    --color-button: #10375C; /* Button background */
+  }
+
+  .bg-primary-dark {
+    background-color: var(--color-button);
+  }
+
+  .bg-primary-light {
+    background-color: var(--color-primary-light);
+  }
+
+  .bg-button {
+    background-color: var(--color-button);
+  }
+
+  .bg-background {
+    background-color: var(--color-background);
+  }
+
+  .text-primary-light {
+    color: var(--color-primary-light);
+  }
+
+  .text-primary-dark {
+    color: var(--color-primary-dark);
+  }
