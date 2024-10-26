@@ -46,9 +46,10 @@ const login = async (req,res)=>{
         
         const isMatch = await bcrypt.compare(password, user.password)
         if(!isMatch) return res.render('user/login', {message:"Incorrect Password", alertType:"error"})
-        console.log('ivide ok')
+        
+        req.session.user = true
 
-        res.render('user/index', {username: username})
+        res.render('user/index', {username: req.session.username, isLoginned: true})
     }catch(error){
         log.red("ERROR",error)
         res.render('user/login', {message:"Something went wrong", alertType:"error"})
@@ -58,7 +59,12 @@ const login = async (req,res)=>{
 }
 
 const loadHome = (req, res)=>{
-    res.render('user/index')
+    res.render('user/index', {usermame: req.session.username, isLoginned: true })
 }
 
-export default {loadLogin, loadRegister,  registerUser, login, loadHome}
+const logout = (req, res)=>{
+    req.session.user = null
+    res.render('user/login')
+}
+
+export default {loadLogin, loadRegister,  registerUser, login, loadHome, logout}
