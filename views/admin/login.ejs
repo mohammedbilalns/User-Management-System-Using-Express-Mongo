@@ -5,17 +5,17 @@
   <div class="w-full max-w-md p-8 space-y-6 bg-white shadow-lg rounded-lg">
     <h2 class="text-3xl font-bold text-center text-primary-dark">Admin Login</h2>
 
-    <form class="space-y-4">
+    <form method="post" action="admin/login" class="space-y-4">
       <!-- Email Input -->
       <div>
         <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
-        <input id="email" name="email" type="email" required class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:ring-primary-light focus:border-primary-light">
+        <input id="email" name="email" type="email"  class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:ring-primary-light focus:border-primary-light">
       </div>
 
       <!-- Password Input -->
       <div>
         <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-        <input id="password" name="password" type="password" required class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:ring-primary-light focus:border-primary-light">
+        <input id="password" name="password" type="password"  class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:ring-primary-light focus:border-primary-light">
       </div>
 
       <!-- Submit Button -->
@@ -31,5 +31,46 @@
     </form>
   </div>
 </main>
+
+
+<% if (locals.message && locals.alertType) { %>
+  <script>
+    Swal.fire({
+      icon: "<%= alertType %>", 
+      title: "<%= alertType === 'success' ? 'Success!' : 'Error!' %>",
+      text: "<%= message %>",
+      confirmButtonColor: "#10375C"
+    });
+  </script>
+<% } %>
+
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector("form").addEventListener("submit", formValidate);
+  });
+  
+  function formValidate(e) {
+    e.preventDefault();
+  
+ 
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+  
+    if (email === "" || password === "" ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "All fields are required",
+        confirmButtonColor: "#10375C" 
+      });
+      return false;
+    } 
+    // Allow form submission if validation passes
+    e.target.submit();
+    return true
+  }
+</script>
 
 <%- include('../partials/footer') %>

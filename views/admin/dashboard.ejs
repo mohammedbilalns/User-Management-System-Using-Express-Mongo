@@ -1,0 +1,59 @@
+<%- include('../partials/header') %>
+
+<main class="flex-grow flex flex-col items-center justify-center py-8">
+    <div class="w-full max-w-5xl p-8 space-y-6 bg-white shadow-lg rounded-lg">
+        <h2 class="text-3xl font-bold text-center text-primary-dark">User Management</h2>
+        <a href="#" class="inline-block mb-4 text-blue-600 hover:underline" data-modal-toggle="addUserModal">Add User</a>
+
+        <table class="min-w-full border border-gray-300">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="border p-2 text-left">Username</th>
+                    <th class="border p-2 text-left">Email</th>
+                    <th class="border p-2 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%if(locals.users){ users.forEach(user => { %>
+                    <tr>
+                        <td class="border p-2"><%= user.username %></td>
+                        <td class="border p-2"><%= user.email %></td>
+                        <td class="border p-2">
+                            <a href="/admin/users/edit/<%= user._id %>" class="text-blue-600 hover:underline">Edit</a>
+                            <form action="/admin/users/delete/<%= user._id %>" method="POST" class="inline">
+                                <button type="submit" class="text-red-600 hover:underline">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% })} %>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal for Adding User -->
+    <div id="addUserModal" class=" fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50">
+        <div class="bg-white rounded-lg p-8 w-96">
+            <h3 class="text-xl font-bold">Add New User</h3>
+            <form action="/admin/users/add" method="POST">
+                <div class="mt-4">
+                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                    <input id="username" name="username" type="text" required class="w-full p-2 mt-1 border border-gray-300 rounded-md">
+                </div>
+                <div class="mt-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input id="email" name="email" type="email" required class="w-full p-2 mt-1 border border-gray-300 rounded-md">
+                </div>
+                <div class="mt-4">
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input id="password" name="password" type="password" required class="w-full p-2 mt-1 border border-gray-300 rounded-md">
+                </div>
+                <div class="mt-6">
+                    <button type="submit" class="w-full py-2 text-white bg-blue-600 rounded-md hover:bg-blue-900">Add User</button>
+                </div>
+            </form>
+            <button class="mt-4 text-red-600" onclick="document.getElementById('addUserModal').style.display='none'">Close</button>
+        </div>
+    </div>
+</main>
+
+

@@ -8,7 +8,6 @@ import adminRoutes from "../routes/admin.js"
 import connnectDb from "../db/connect.js"
 import session from "express-session"
 import helmet from "helmet"
-// import path from "path"
 // import morgan from " morgan"
 // import cors from "cors"
 
@@ -19,6 +18,7 @@ dotenv.config() // load environment variables
 const PORT = process.env.PORT  // set  port 
 
 app.set("view engine", "ejs")
+
 app.set('view cache', false);
 
 app.use((req, res, next) => {
