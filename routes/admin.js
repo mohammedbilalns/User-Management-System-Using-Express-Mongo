@@ -1,12 +1,14 @@
 import express from "express"
 import { Router } from "express"
 import adminController from "../controller/adminController.js"
+import adminAuth from "../middlewares/adminAuth.js"
+
 const router = Router()
 
 router.use(express.static('static'))
 
-router.get('/login',adminController.loadLogin )
-router.get('/dashboard', adminController.loadDashBoard)
-router.post('/login', adminController.login)
+router.get('/login',adminAuth.isLogin,adminController.loadLogin )
+router.get('/dashboard',adminAuth.checkSession, adminController.loadDashBoard)
+router.post('/login' ,adminController.login)
 
 export default router

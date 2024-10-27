@@ -14,8 +14,8 @@ const loadDashBoard = async (req, res) => {
         const admin = req.session.admin
         if(!admin) return res.render("admin/login")
 
-        const users = userModel.find({})
-        res.render("admin/dashboard", {users:users})
+        const  users = await userModel.find({})
+        res.render("admin/dashboard", {users})
     }catch(error){
         log.red("ERROR", error)
     }
@@ -34,7 +34,8 @@ const login = async (req, res)=>{
         const isMatch = await bcrypt.compare(password, admin.password)
 
         if(!isMatch) return res.render('admin/login', {message:"Incorrect Password", alertType:"error" })
-    res.render('admin/dashboard')
+        req.session.admin = true
+        res.redirect('/admin/dashboard')
     }catch(error){
         log.red("ERROR", error)
         res.render('admin/login',{message:"Something went wrong", alertType:"error"} )
