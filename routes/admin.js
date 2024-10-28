@@ -13,4 +13,5 @@ router.post('/login' ,adminController.login)
 router.get('/logout', adminAuth.checkSession,adminController.logout )
 router.post('/addusers',adminAuth.checkSession, adminController.addusers )
 router.get('/delete-user/:id',adminAuth.checkSession, adminController.deleteUser )
+router.post('/editusers/:id', adminAuth.checkSession, adminController.editUser )
 export default router

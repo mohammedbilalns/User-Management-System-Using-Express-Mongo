@@ -40,7 +40,9 @@ app.use('/admin', adminRoutes) // admin route
 // app.use(cors())
 // app.use(morgan("tiny")) // log request for debugging
 
-
+app.use((req, res) => {
+  res.status(404).send('Invalid URL');  // Assuming you have a 404.ejs or 404.pug view template
+});
 
 
 
