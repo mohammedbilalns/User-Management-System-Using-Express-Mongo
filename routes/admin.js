@@ -12,5 +12,5 @@ router.get('/dashboard',adminAuth.checkSession, adminController.loadDashBoard)
 router.post('/login' ,adminController.login)
 router.get('/logout', adminAuth.checkSession,adminController.logout )
 router.post('/addusers',adminAuth.checkSession, adminController.addusers )
-
+router.get('/delete-user/:id',adminAuth.checkSession, adminController.deleteUser )
 export default router

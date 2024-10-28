@@ -23,8 +23,8 @@
                         <td class="border p-2"><%= user.username %></td>
                         <td class="border p-2"><%= user.email %></td>
                         <td class="border p-2">
-                            <a href="#" class="text-blue-600 hover:underline" onclick="openEditModal('<%= user._id %>', '<%= user.username %>', '<%= user.email %>')">Edit</a>
-                            <form action="/admin/users/delete/<%= user._id %>" method="POST" class="inline">
+                            <a href="#" class="text-blue-600 hover:underline" onclick="openEditModal('<%= user._id %>', '<%= user.username %>', '<%= user.email %>', '<% user.password %>')">Edit</a>
+                            <form action="/admin/delete-user/<%= user._id %>" method="get" class="inline">
                                 <button type="submit" class="text-red-600 hover:underline">Delete</button>
                             </form>
                         </td>
@@ -64,7 +64,7 @@
     <div id="editUserModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
             <h3 class="text-xl font-bold mb-4">Edit User</h3>
-            <form id="editUserForm" action="admin/users/edit/" method="POST">
+            <form id="editUserForm" action="admin/editusers" method="POST">
                 <div class="mb-4">
                     <label for="editUsername" class="block">Username:</label>
                     <input type="text" id="editUsername" name="username" required class="border p-2 rounded w-full" />
@@ -119,7 +119,8 @@
         document.getElementById('editUserModal').classList.remove('hidden');
         document.getElementById('editUsername').value = username;
         document.getElementById('editEmail').value = email;
-        document.getElementById('editUserForm').action = `/admin/users/edit/${userId}`;
+        document.getElementById('editPassword').value = password;
+        // document.getElementById('editUserForm').action = `/admin/users/edit/${userId}`;
     }
 
     // Close the Edit User modal
