@@ -63,8 +63,12 @@ const loadHome = (req, res)=>{
 }
 
 const logout = (req, res)=>{
-    req.session.user = null
-    res.render('user/login')
+    req.session.destroy((err) => {
+        if (err) {
+            log.red("ERROR", err);
+        }
+        res.redirect('/user/login');
+    });
 }
 
 export default {loadLogin, loadRegister,  registerUser, login, loadHome, logout}
