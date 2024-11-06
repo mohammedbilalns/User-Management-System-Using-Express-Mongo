@@ -47,7 +47,11 @@ const login = async (req,res)=>{
         const isMatch = await bcrypt.compare(password, user.password)
         if(!isMatch) return res.render('user/login', {message:"Incorrect Password", alertType:"error"})
         
-        req.session.user = true
+            req.session.user = {
+                id: user._id,
+                username: user.username,
+                email: user.email
+            };
 
         res.render('user/index', {username: req.session.username, isLoginned: true})
     }catch(error){
