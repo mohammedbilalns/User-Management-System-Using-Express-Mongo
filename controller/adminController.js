@@ -44,8 +44,12 @@ const login = async (req, res) => {
 }
 
 const logout = (req, res) => {
-    req.session.admin = null
-    res.render('admin/login')
+    req.session.destroy((err) => {
+        if (err) {
+            log.red("ERROR", err);
+        }
+        res.redirect('/admin/login');
+    });
 }
 
 const addusers = async (req, res) => {
@@ -79,9 +83,8 @@ const deleteUser = async (req, res) => {
 const editUser = async (req,res)=>{
     try{
         const id = req.params.id
-        const {username, email, password} = req.body
-        const hashedPassword = await bcrypt.hash(password, 10)
-        const user = await userModel.findOneAndUpdate({_id:id}, {$set:{username, email, password:hashedPassword}})
+        const {username, email} = req.body
+        const user = await userModel.findOneAndUpdate({_id:id}, {$set:{username, email}})
         res.redirect('/admin/dashboard')
 
     }catch(error){
