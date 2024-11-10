@@ -84,8 +84,13 @@ const deleteUser = async (req, res) => {
 const editUser = async (req,res)=>{
     try{
         const id = req.params.id
-        const {username, email} = req.body
-        const user = await userModel.findOneAndUpdate({_id:id}, {$set:{username, email}})
+        const {username, email, password} = req.body
+        if(!password){ 
+            await userModel.findOneAndUpdate({_id:id}, {$set:{username, email}})
+        }else{
+            const hashedPassword = await bcrypt.hash(password, 10)
+            const user = await userModel.findOneAndUpdate({_id:id}, {$set:{username, email, password: hashedPassword}})
+        }
         res.redirect('/admin/dashboard')
 
     }catch(error){
