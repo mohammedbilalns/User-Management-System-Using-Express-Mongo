@@ -72,6 +72,7 @@ const deleteUser = async (req, res) => {
     try {
 
         const id = req.params.id
+        
         await userModel.findByIdAndDelete(id)
         res.redirect('/admin/dashboard')
     } catch (error) {
