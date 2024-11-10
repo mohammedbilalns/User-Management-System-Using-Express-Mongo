@@ -64,7 +64,7 @@
     <div id="editUserModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
         <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
             <h3 class="text-xl font-bold mb-4">Edit User</h3>
-            <form id="editUserForm" action="/admin/editusers" method="POST" >
+            <form id="editUserForm" action="/admin/editusers" onsubmit="return confirmUpdate()" method="POST" >
                 <div class="mb-4">
                     <label for="editUsername" class="block">Username:</label>
                     <input type="text" id="editUsername" name="username" required class="border p-2 rounded w-full" />
@@ -131,4 +131,8 @@
     function confirmDelete() {
     return confirm("Are you sure you want to delete this item?");
 }
+
+    function confirmUpdate(){
+        return confirm("Are you sure you want to update this item ")
+    }
 </script>
